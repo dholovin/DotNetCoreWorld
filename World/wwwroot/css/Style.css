@@ -1,0 +1,46 @@
+﻿@charset "UTF-8";
+body {
+  /* ID is referencesd with # */ }
+  body #sidebar, body .hide-sidebar {
+    background: #2a2c36;
+    color: white;
+    position: fixed;
+    left: 0;
+    height: 100%;
+    width: 250px;
+    overflow: hidden; }
+    body #sidebar .menu li, body .hide-sidebar .menu li, body #sidebar .menuActiveItem li, body .hide-sidebar .menuActiveItem li {
+      list-style-type: none; }
+    body #sidebar .menuActiveItem, body .hide-sidebar .menuActiveItem {
+      font-weight: bold; }
+  body #wrapper, body .hide-sidebar {
+    margin: 0 0 0 250px;
+    -webkit-transition: margin-left 0.25s ease;
+    /* Chrome 1-25, Safari 3.2+ */
+    -moz-transition: margin-left 0.25s ease;
+    /* Firefox 4-15 */
+    -o-transition: margin-left 0.25s ease;
+    /* Opera 10.50–12.00 */
+    transition: margin-left 0.25s ease;
+    /* Chrome 26, Firefox 16+, IE 10+, Opera 12.10+ */ }
+  body .hide-sidebar {
+    left: -250px;
+    -webkit-transition: left 0.25s ease;
+    /* Chrome 1-25, Safari 3.2+ */
+    -moz-transition: left 0.25s ease;
+    /* Firefox 4-15 */
+    -o-transition: left 0.25s ease;
+    /* Opera 10.50–12.00 */
+    transition: left 0.25s ease;
+    /* Chrome 26, Firefox 16+, IE 10+, Opera 12.10+ */ }
+  body .hide-sidebar {
+    margin-left: 0;
+    -webkit-transition: margin-left 0.25s ease;
+    /* Chrome 1-25, Safari 3.2+ */
+    -moz-transition: margin-left 0.25s ease;
+    /* Firefox 4-15 */
+    -o-transition: margin-left 0.25s ease;
+    /* Opera 10.50–12.00 */
+    transition: margin-left 0.25s ease;
+    /* Chrome 26, Firefox 16+, IE 10+, Opera 12.10+ */ }
+

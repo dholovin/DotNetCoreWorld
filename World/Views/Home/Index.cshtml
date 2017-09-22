@@ -1,0 +1,27 @@
+﻿@page
+@*@model IndexModel*@
+@{
+    //Layout = "_Layout";           // Actually, View/_ViewStart.cshtml is created instead, to be applied for every View inside 'Views' folder
+    ViewBag.Title = "Home Page";
+}
+<!--Shift+Alt+W   to wrap block with <div>-->
+<h2>The World!</h2>
+<form id="locationForm">
+    <div>
+        <label>Date</label>
+        <input />
+    </div>
+    <div>
+        <label>Location</label>
+        <input />
+    </div>
+    <div><button type="submit">Add</button></div>
+</form>
+
+@*Below will work after _Layout.cshtml has  RenderSection() specified after jquery is initialized *@
+@section  scripts{
+    <script>
+        var eleUserName = $("#username");
+        eleUserName.html("Denys Holovin - modified");
+    </script>
+}

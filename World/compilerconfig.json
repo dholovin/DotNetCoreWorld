@@ -1,0 +1,18 @@
+﻿[
+  {
+    "outputFile": "wwwroot/css/Style.css",
+    "inputFile": "wwwroot/css/Style.scss"
+  }
+
+  //{
+  //  "outputFile": "output/scss.css",
+  //  "inputFile": "input/scss.scss",
+  //  "minify": {
+  //    "enabled": true
+  //  },
+  //  "includeInProject": true,
+  //  "options": {
+  //    "sourceMap": true
+  //  }
+  //}
+]

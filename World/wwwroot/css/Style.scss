@@ -1,0 +1,57 @@
+﻿$font-stack: Helvetica, sans-serif;
+$primary-color: #333;
+
+body {
+    //margin: 0; // default, to have no spaces between elements
+    /* ID is referencesd with # */
+
+    #sidebar {
+        background: #2a2c36;
+        color: white;
+        position: fixed;
+        left: 0;
+        height: 100%;
+        width: 250px;
+        overflow: hidden;
+
+        .menu {
+            li {
+                list-style-type: none;
+            }
+        }
+
+        .menuActiveItem {
+            @extend .menu;
+            font-weight: bold;
+        }
+    }
+
+    #wrapper {
+        margin: 0 0 0 250px;
+        //width: 100%;
+        -webkit-transition: margin-left 0.25s ease; /* Chrome 1-25, Safari 3.2+ */
+        -moz-transition: margin-left 0.25s ease; /* Firefox 4-15 */
+        -o-transition: margin-left 0.25s ease; /* Opera 10.50–12.00 */
+        transition: margin-left 0.25s ease; /* Chrome 26, Firefox 16+, IE 10+, Opera 12.10+ */
+
+    }
+
+    .hide-sidebar {
+        @extend #sidebar;
+        left: -250px;        
+        -webkit-transition: left 0.25s ease; /* Chrome 1-25, Safari 3.2+ */
+        -moz-transition: left 0.25s ease; /* Firefox 4-15 */
+        -o-transition: left 0.25s ease; /* Opera 10.50–12.00 */
+        transition: left 0.25s ease; /* Chrome 26, Firefox 16+, IE 10+, Opera 12.10+ */
+        
+    }
+
+    .hide-sidebar {
+        @extend #wrapper;
+        margin-left: 0;        
+        -webkit-transition: margin-left 0.25s ease; /* Chrome 1-25, Safari 3.2+ */
+        -moz-transition: margin-left 0.25s ease; /* Firefox 4-15 */
+        -o-transition: margin-left 0.25s ease; /* Opera 10.50–12.00 */
+        transition: margin-left 0.25s ease; /* Chrome 26, Firefox 16+, IE 10+, Opera 12.10+ */
+    }
+}

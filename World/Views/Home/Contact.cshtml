@@ -1,0 +1,46 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@model  World.ViewModels.ContactViewModel
+
+@{
+    ViewBag.Title = "Contact";
+}
+
+@section  scripts{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}
+<h2>Contact</h2>
+<form id="contactForm" method="post">
+    @*ModelOnly will show the list of errors which aren't about individual fields but other more general rules validated on server*@
+    <div asp-validation-summary="ModelOnly"></div>
+    @if (ViewBag.MessageSent != null)
+    {   
+        <div>@ViewBag.MessageSent</div>
+    }
+
+    <div class="form-group">
+        <label asp-for="Name">Name</label>
+        <input asp-for="Name" id="contactName" class="form-control" />
+        <span asp-validation-for="Name" class="text-muted"></span>
+    </div>
+
+    <div  class="form-group">
+        <label asp-for="Email">Email</label>
+        <input type="email" id="contactEmail" asp-for="Email"  class="form-control"/>
+        <span asp-validation-for="Email" class="text-muted"></span>
+    </div>
+
+    <div  class="form-group">
+        <label asp-for="Message">Message</label>
+        <textarea id="contactMessage" cols="40" rows="4" asp-for="Message" class="form-control"></textarea>
+        <span asp-validation-for="Message" class="text-muted"></span>
+    </div>
+
+    <div  class="form-group">
+        <a class="btn btn-default" asp-controller="Home" asp-action="Contact">Cancel</a>
+        <button type="submit" class="btn btn-success">Send Message</button>
+    </div>
+</form>

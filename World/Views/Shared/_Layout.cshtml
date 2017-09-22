@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>The World - @ViewBag.Title</title>
+
+    @*Order maters*@
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />    
+
+    <link rel="stylesheet" href="~/css/Style.css" /> @*'~' tells we want to start from actual Root of our Website*@
+    <!--<style>
+        body{
+            font-family: sans-serif;
+            font-size: 20px;
+        }
+    </style>-->
+</head>
+<body>
+    <div id="sidebar">
+        <span id="username">Denys Holovin</span>
+        <ul class="nav">
+            <li class="menuActiveItem"><a asp-controller="Home" asp-action="Index">Home</a></li>
+            <li><a asp-controller="Home" asp-action="About">About</a></li>
+            <li><a asp-controller="Home" asp-action="Contact">Contact</a></li>
+        </ul>
+    </div>
+
+    <div id="wrapper">
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <ul class="nav navbar-nav navbar-left">
+                    <li>
+                        <button id="sidebarToggle" class="btn btn-primary">
+                            <i class="glyphicon glyphicon-chevron-left"></i> 
+                        </button>
+                    </li>
+                </ul>
+              <a asp-controller="Home" asp-action="Index" class="navbar-brand">Home</a>  
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#" class="btn btn-sm btn-info">
+                            Print
+                        </a>                        
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div id="main" class="container-fluid">
+            @RenderBody()
+        </div>
+
+        <footer id="footer" class="container-fluid">
+            <div class="navbar navbar-inverse navbar-fixed-bottom">
+                <h5 class="text-right text-info">&copy; 2017 The World App</h5>
+            </div>
+        </footer>
+    </div>
+
+    <script type="text/javascript" src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    @*This tells to render "Scripts" section from the View, if applicable
+        Refer "Contacts"  View for reference*@
+
+    @RenderSection("scripts", required: false)
+
+    <script>
+        //var menuItems = $("ul.menu li a");
+        //menuItems.on("click", function () {
+        //    $("#sidebar,#wrapper").toggleClass("hide-sidebar");
+
+
+            //var me = $(this);
+            //alert(me.text());
+        //});
+    </script>
+</body>
+</html>
