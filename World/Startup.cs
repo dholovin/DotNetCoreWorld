@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using World.Services;
 using Microsoft.Extensions.Configuration;
+using World.Middleware;
 
 namespace World
 {
@@ -56,7 +57,7 @@ namespace World
             
             app.UseStaticFiles();
 
-            app.UseNullObjectHandler();
+            app.UseNullObjectMiddleware();
 
             app.UseMvc(routes =>
             {

@@ -30,9 +30,12 @@ namespace World.Controllers
             return View();
         }
 
-        public ContactViewModel Test()
+        public ContactViewModel TestNull()
         {
-            return null;
+            var spike = new ContactViewModel() { Name = "Test" };
+            return spike;
+
+            //return null;
         }
 
         public IActionResult Contact()

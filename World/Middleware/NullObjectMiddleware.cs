@@ -8,15 +8,15 @@ using System.Diagnostics;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Debug;
 
-namespace World
+namespace World.Middleware
 {
     // You may need to install the Microsoft.AspNetCore.Http.Abstractions package into your project
-    public class NullObjectHandler
+    public class NullObjectMiddleware
     {
         private readonly RequestDelegate _next;
         private readonly ILogger _logger;
 
-        public NullObjectHandler(RequestDelegate next, ILoggerFactory loggerFactory)
+        public NullObjectMiddleware(RequestDelegate next, ILoggerFactory loggerFactory)
         {
             _next = next;
 
@@ -24,7 +24,7 @@ namespace World
             //loggerFactory
             //    .AddDebug(LogLevel.Debug)
             //    .AddConsole(LogLevel.Debug);
-            _logger = loggerFactory.CreateLogger<NullObjectHandler>();
+            _logger = loggerFactory.CreateLogger<NullObjectMiddleware>();
         }
 
         public async Task Invoke(HttpContext httpContext)
@@ -42,9 +42,9 @@ namespace World
     // Extension method used to add the middleware to the HTTP request pipeline.
     public static class NullObjectHandlerExtensions
     {
-        public static IApplicationBuilder UseNullObjectHandler(this IApplicationBuilder builder)
+        public static IApplicationBuilder UseNullObjectMiddleware(this IApplicationBuilder builder)
         {
-            return builder.UseMiddleware<NullObjectHandler>();
+            return builder.UseMiddleware<NullObjectMiddleware>();
         }
     }
 }
