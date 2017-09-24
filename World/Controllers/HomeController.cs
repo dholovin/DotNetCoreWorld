@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,24 +13,34 @@ namespace World.Controllers
 {
     public class HomeController: Controller
     {
-        private IMailService _mailSevice;
-        private IConfigurationRoot _config;
-
         //private WorldContext _context;      //Before Implementing Repository pattern abstraction
-        private IWorldRepository _repository;
+        private readonly IWorldRepository _repository;
+        private readonly IMailService _mailSevice;
+        private readonly IConfigurationRoot _config;
+        private readonly ILogger<HomeController> _logger;
 
-        public HomeController(IMailService  mailService, IConfigurationRoot config, IWorldRepository repository)
+        public HomeController(IMailService  mailService, IConfigurationRoot config, IWorldRepository repository, ILogger<HomeController> logger)
         {
             _mailSevice = mailService;
             _config = config;
             _repository = repository;
+            _logger = logger;
         }
 
         public IActionResult Index()
         {
-            var trips = _repository.GetAllTrips();
-            //return View(trips);
-            return View();
+            try
+            {
+                var trips = _repository.GetAllTrips();
+                
+                //return View(trips);
+                return View();
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError($"Failed to get Trips on Index page: {ex.Message}");
+                return Redirect("/Error");
+            }
         }
 
         public IActionResult About()

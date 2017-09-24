@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using World.Middleware;
 using World.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace World
 {
@@ -41,6 +42,8 @@ namespace World
             //Use one instance throughout application lifecycle. Now may inject into any class/service/controller
             services.AddSingleton(_config);
 
+            services.AddLogging();
+
             if (_environment.IsDevelopment())
             {
                 //"Scoped" dependencies are created and injected as needed per web request                 
@@ -52,27 +55,29 @@ namespace World
             }
 
             //uses 'Scoped' dependency type
-            services.AddDbContext<WorldContext>(options => options.UseSqlServer(_config.GetConnectionString("DefaultConnectionString")));            
+            services.AddDbContext<WorldContext>(options => options.UseSqlServer(_config.GetConnectionString("DefaultConnectionString")));
             //int poolSize = 128; //default anyway
             //services.AddDbContextPool<WorldContext>(options => options.UseSqlServer(_config.GetConnectionString("DefaultConnectionString")), poolSize);
-
-            services.AddMvc();
 
             //"Transient" objects are always different; a new instance is provided to every controller and every service
             services.AddTransient<IWorldRepository, WorldRepository>();
             //For Test Project Implementation
             //services.AddTransient<IWorldRepository, MockWorldRepository>();
+
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
-        {
-            if (env.IsEnvironment("Development")) // get name from project poroperties -> debug -> aspnetcore_environment
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        {   
+            if (env.IsEnvironment("Development")) // get name from project properties -> debug -> aspnetcore_environment
             {
                 app.UseDeveloperExceptionPage();
+                loggerFactory.AddDebug(LogLevel.Information); //Information and everything higher (all but Trace and Debug)
             }
             else
             {
+                loggerFactory.AddDebug(LogLevel.Error); //errors or higher {Error, Critical}
                 app.UseExceptionHandler("/home/error");
             }
 
