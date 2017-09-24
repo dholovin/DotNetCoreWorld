@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using World.Models;
 using World.Services;
 using World.ViewModels;
 
@@ -14,14 +15,20 @@ namespace World.Controllers
         private IMailService _mailSevice;
         private IConfigurationRoot _config;
 
-        public HomeController(IMailService  mailService, IConfigurationRoot config)
+        //private WorldContext _context;      //Before Implementing Repository pattern abstraction
+        private IWorldRepository _repository;
+
+        public HomeController(IMailService  mailService, IConfigurationRoot config, IWorldRepository repository)
         {
             _mailSevice = mailService;
             _config = config;
+            _repository = repository;
         }
 
         public IActionResult Index()
         {
+            var trips = _repository.GetAllTrips();
+            //return View(trips);
             return View();
         }
 

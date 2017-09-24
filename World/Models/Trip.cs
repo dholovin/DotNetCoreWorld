@@ -12,5 +12,6 @@ namespace World.Models
         public string Username { get; set; }
         public DateTime DateCreated { get; set; }
         public ICollection<Stop> Stops { get; set; }
+        //public string Comments{ get; set; }
     }
 }

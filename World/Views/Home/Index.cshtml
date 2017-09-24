@@ -6,17 +6,23 @@
 }
 <!--Shift+Alt+W   to wrap block with <div>-->
 <h2>The World!</h2>
-<form id="locationForm">
-    <div>
-        <label>Date</label>
-        <input />
-    </div>
-    <div>
-        <label>Location</label>
-        <input />
-    </div>
-    <div><button type="submit">Add</button></div>
-</form>
+<div class="col-md-3 col-md-offset-4">
+    <form id="locationForm">
+
+        <div class="form-group">
+            <label>Date</label>
+            <input class="form-control" />
+        </div>
+        <div class="form-group">
+            <label>Location</label>
+            <input class="form-control" />
+        </div>
+        <div class="form-group">
+            <a class="btn btn-default" asp-controller="Home" asp-action="Index">Cancel</a>
+            <button type="submit" class="btn btn-success">Add</button>
+        </div>
+    </form>
+</div>
 
 @*Below will work after _Layout.cshtml has  RenderSection() specified after jquery is initialized *@
 @section  scripts{

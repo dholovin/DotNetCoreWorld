@@ -1,5 +1,11 @@
-﻿{   
+﻿{
   "MailSettings": {
-    "ToAddress":  "denys.holovin@cgi.com"
+    "ToAddress": "denys.holovin@cgi.com"
+  },
+  "ConnectionStrings": {
+    //In SQL Server Explorer -> create database WorldDb on (name='WorldDb', filename='c:\\Projects\Practice\World\World\APP_Data\WorldDb.mdf');
+    //MultipleActiveResultSets=true; will allow to do batch quering
+    "DefaultConnectionString": "Server=(localdb)\\MSSQLLocalDB;Database=WorldDb;Trusted_Connection=True;MultipleActiveResultSets=true;"
+
   }
 }

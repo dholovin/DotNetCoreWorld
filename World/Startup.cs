@@ -9,6 +9,8 @@ using Microsoft.Extensions.DependencyInjection;
 using World.Services;
 using Microsoft.Extensions.Configuration;
 using World.Middleware;
+using World.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace World
 {
@@ -36,8 +38,12 @@ namespace World
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            //Use one instance throughout application lifecycle. Now may inject into any class/service/controller
+            services.AddSingleton(_config);
+
             if (_environment.IsDevelopment())
             {
+                //"Scoped" dependencies are created and injected as needed per web request                 
                 services.AddScoped<IMailService, DebugMailService>();
             }
             else
@@ -45,16 +51,32 @@ namespace World
                 // Implement non-debug  version of MailService;
             }
 
-            services.AddSingleton(_config);
+            //uses 'Scoped' dependency type
+            services.AddDbContext<WorldContext>(options => options.UseSqlServer(_config.GetConnectionString("DefaultConnectionString")));            
+            //int poolSize = 128; //default anyway
+            //services.AddDbContextPool<WorldContext>(options => options.UseSqlServer(_config.GetConnectionString("DefaultConnectionString")), poolSize);
 
             services.AddMvc();
+
+            //"Transient" objects are always different; a new instance is provided to every controller and every service
+            services.AddTransient<IWorldRepository, WorldRepository>();
+            //For Test Project Implementation
+            //services.AddTransient<IWorldRepository, MockWorldRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            if (env.IsEnvironment("Development")) // get name from project poroperties -> debug -> aspnetcore_environment
+            {
+                app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseExceptionHandler("/home/error");
+            }
+
             //app.UseDefaultFiles(); -> this should try to search for index, default, etc... under wwwroot folder. Instead,  use  routing
-            
             app.UseStaticFiles();
 
             app.UseNullObjectMiddleware();
@@ -67,17 +89,6 @@ namespace World
                     //defaults: new {controller = "Home", action = "Index"}
                     );
             });
-
-            if (env.IsEnvironment("Development")) // get name from project poroperties -> debug -> aspnetcore_environment
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseExceptionHandler("/home/error");
-            }
-
-            
 
             //app.Run(async (context) =>
             //{
